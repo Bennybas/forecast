@@ -7,6 +7,7 @@ import PriceTab from './PriceTab'
 import AnalysisTab from './AnalysisTab'
 import EvalutionTab from './EvalutionTab'
 import HistoryTab from './HistoryTab'
+import SensitivityTab from './SensitivityTab'
 
 const BrandDirectorMain = () => {
 
@@ -75,7 +76,8 @@ const BrandDirectorMain = () => {
         return <AnalysisTab />
       case "Evaluation":
         return <EvalutionTab />
-
+      case "Sensitivity":
+        return <SensitivityTab />
       case "History":
         return <HistoryTab />
     }
