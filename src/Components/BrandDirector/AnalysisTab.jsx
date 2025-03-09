@@ -42,9 +42,9 @@ const AnalysisTab = () => {
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="sticky top-0 bg-white z-10">
           <tr>
-            <th className="px-6 py-4 text-left text-[12px] font-medium text-gray-600 w-1/6 bg-white">Assumptions</th>
+            <th className="px-6 py-4 text-left text-[12px] font-medium text-white w-1/6 bg-teal-600">Assumptions</th>
             {evolutionData.years.map((year, index) => (
-              <th key={index} className="px-6 py-4 text-left text-[12px] font-medium text-gray-600 bg-white">
+              <th key={index} className="px-6 py-4 text-left text-[12px] font-medium text-white bg-teal-600">
                 {year}
               </th>
             ))}

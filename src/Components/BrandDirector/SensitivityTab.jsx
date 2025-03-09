@@ -157,10 +157,10 @@ const SensitivityTab = () => {
                   return (
                     <text
                       x={xPos}
-                      y={y + 4}
+                      y={y+1}
                       fill="#666"
                       textAnchor="middle"
-                      fontSize="10"
+                      fontSize="11"
                     >
                       {Math.abs(value)}
                     </text>
