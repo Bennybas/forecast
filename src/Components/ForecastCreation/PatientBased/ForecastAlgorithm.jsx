@@ -46,7 +46,9 @@ const ForecastAlgorithm = () => {
             <div className='flex justify-between items-center w-full'>
                 {/* Left Side - Breadcrumb */}
                 <div className='flex items-center'>
-                    <span className='text-gray-600'>Forecast Creation</span> &gt; 
+                    <span 
+                    onClick={()=>navigate('/forcast-creation')}
+                    className='text-gray-600 cursor-pointer'>Forecast Creation</span> &gt; 
                     <span className='font-medium'>Define Forecast Flow</span>
                 </div>
 

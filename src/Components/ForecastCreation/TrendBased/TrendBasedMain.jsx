@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import { ChevronDown, NotebookText, ChartColumnIncreasing, Cylinder, CircleDollarSign, ChartNoAxesCombined, BookOpenCheck, SlidersVertical, History } from 'lucide-react'
+import { ChevronDown, NotebookText, ChartColumnIncreasing, Cylinder, CircleDollarSign, ChartNoAxesCombined, BookOpenCheck, ArrowLeft, History } from 'lucide-react'
 import HistoryData from './HistoryData'
 import TrendAnalysisTab from './TrendAnalysisTab'
 import ForecastPreviewTab from './ForecastPreviewTab'
 import ForecastParametersTab from './ForecastParametersTab'
+import { useNavigate } from 'react-router-dom'
 
 
 const TrendBasedMain = () => {
+  const navigate = useNavigate();
 
   const [currentTab, setcurrentTab] = useState('Historical Data')
   const [showFilterOptions, setShowFilterOptions] = useState(null)
@@ -109,14 +111,24 @@ const TrendBasedMain = () => {
   return (
     <div className="mt-[4.5rem] p-6 bg-gray-50">
       {/* filters */}
-      <div className='flex justify-between items-center gap-2 bg-white border-b-[1.5px] border-x border-l-[1.5px] border-gray-300 w-full h-[3rem] rounded-xl py-2 px-4'>
+      <div className='flex justify-between items-center bg-white border-b-[1.5px] border-x border-l-[1.5px] border-gray-300 w-full h-[3rem] rounded-xl py-2 px-4'>
+        <div className='flex gap-3 items-center'>
+
+        <div 
+        onClick={()=> navigate('/forcast-creation')}
+        className='rounded-full bg-white p-1 border cursor-pointer'>
+          <ArrowLeft className='w-4 h-4 text-teal-600'/>  
+        </div>
+          
         <div className='flex flex-col justify-start items-start gap-1'>
+           
             <span className='text-teal-600 text-[14px] font-[500]'>
                 Trend Based Model
             </span>
             <span className='text-[10px]'>
                 Immunology Indication 1 - Mid Term Planning - United States of America - 3 Years - Product 1 - 2024
                 </span>
+        </div>
         </div>
 
         <div className='flex gap-2'>
