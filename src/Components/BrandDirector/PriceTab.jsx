@@ -1,97 +1,139 @@
-import React from 'react';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import {MoveUpRight} from 'lucide-react'
+import React, { useEffect, useRef } from 'react';
+import * as echarts from 'echarts';
+import { MoveUpRight } from 'lucide-react';
 
 const PriceTab = () => {
-    // Updated dataset with multiple products
-    const data = [
-        { stage: "Previous Cycle", Product1: 1000, Product2: 1200, Product3: 900 },
-        { stage: "Price", Product1: 200, Product2: 50, Product3: 300 },  
-        { stage: "Volume", Product1: 1500, Product2: 800, Product3: 500 },  
-        { stage: "Current Cycle", Product1: 700, Product2: 1300, Product3: 1000 }  
-    ];
+    const chartRef = useRef(null);
     
+    useEffect(() => {
+        // Initialize the ECharts instance
+        let chartInstance = echarts.init(chartRef.current);
+    
+        // ECharts waterfall configuration
+        const option = {
+            
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                },
+                formatter: function (params) {
+                    var tar = params[1];
+                    return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                splitLine: { show: false },
+                data: ['Previous Cycle', 'Price', 'Volume', 'Current Cycle']
+            },
+            yAxis: {
+                type: 'value',
+                name: 'Value'
+            },
+            series: [
+                {
+                    name: 'Placeholder',
+                    type: 'bar',
+                    stack: 'Total',
+                    itemStyle: {
+                        borderColor: 'transparent',
+                        color: 'transparent'
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            borderColor: 'transparent',
+                            color: 'transparent'
+                        }
+                    },
+                    // These values determine where each bar starts
+                    data: [0, 1000, 1200, 2700]
+                },
+                {
+                    name: 'Product Value',
+                    type: 'bar',
+                    stack: 'Total',
+                    label: {
+                        show: true,
+                        position: 'inside',
+                        formatter: '{c}'
+                    },
+                    itemStyle: {
+                        color: function(params) {
+                            // Color logic for different stages
+                            const colors = {
+                                'Previous Cycle': '#11749e',
+                                'Price': '#11749e',
+                                'Volume': '#11749e',
+                                'Current Cycle': '#ed5f68'
+                            };
+                            return colors[params.name] || '#4a90e2';
+                        }
+                    },
+                    // The actual values shown for each step
+                    data: [1000, 200, 1500, -2000]  // -2000 is calculated to make final sum = 700
+                }
+            ]
+        };
 
+        // Set the option and render the chart
+        chartInstance.setOption(option);
+        
+        // Handle resize
+        const resizeHandler = () => {
+            chartInstance.resize();
+        };
+        
+        window.addEventListener('resize', resizeHandler);
+        
+        // Cleanup
+        return () => {
+            chartInstance.dispose();
+            window.removeEventListener('resize', resizeHandler);
+        };
+    }, []);
+    
     return (
-        <div className='flex flex-col gap-4'>
-            <div className='flex flex-col justify-start gap-1'>
-                <span className='text-teal-600 text-[16px] font-[500]'>
-                    Price vs Volume Analysis (Multiple Products)
+        <div className="flex flex-col gap-4">
+            <div className="flex flex-col justify-start gap-1">
+                <span className="text-teal-600 text-[16px] font-[500]">
+                    Price vs Volume Analysis
                 </span>
             </div>
-            <div className='flex w-full h-full gap-4'>
-            <div className='w-[80%] border h-[24rem] rounded-lg'>
-                <ResponsiveContainer width="100%" height={400}>
-                    <AreaChart data={data} margin={{ top: 20, right: 35, left: 10, bottom: 40 }}>
-                        <XAxis 
-                            dataKey="stage" 
-                            label={{ value: 'Stages', position: 'bottom', offset: -10 }} 
-                            tick={{ fontSize: 12, fill: '#666' }} 
-                        />
-                        <YAxis 
-                            label={{ value: 'Value', angle: -90, position: 'left', offset: -5 }} 
-                            tick={{ fontSize: 12, fill: '#666' }} 
-                        />
-                        <Tooltip />
-                        <Legend />
-                        {/* Product 1 */}
-                        <Area 
-                            type="monotone" 
-                            dataKey="Product1" 
-                            stroke="#4a90e2" 
-                            fill="rgba(74, 144, 226, 0.5)" 
-                            fillOpacity={0.6} 
-                            name="Product 1"
-                        />
-                        {/* Product 2 */}
-                        <Area 
-                            type="monotone" 
-                            dataKey="Product2" 
-                            stroke="#e24a4a" 
-                            fill="rgba(226, 74, 74, 0.5)" 
-                            fillOpacity={0.6} 
-                            name="Product 2"
-                        />
-                        {/* Product 3 */}
-                        <Area 
-                            type="monotone" 
-                            dataKey="Product3" 
-                            stroke="#4ae27f" 
-                            fill="rgba(74, 226, 127, 0.5)" 
-                            fillOpacity={0.6} 
-                            name="Product 3"
-                        />
-                    </AreaChart>
-                </ResponsiveContainer>
-            </div>
-
-            <div className='flex flex-col border rounded-lg h-[6rem] w-[20%] p-1 gap-2'>
-                <span className='text-[10px] text-gray-600'>
-                    Export
-                </span>
-
-                <div className='flex justify-between gap-2'>
-                    <div className='flex'>
-                        <span className='text-[12px] text-gray-600'>
-                            Power BI
-                        </span>
-
-                    </div>
-
-                    <MoveUpRight className='w-4 h-4 text-teal-600'/>
-                </div>
-                <div className='w-full px-1 border'></div>
-                <div className='flex justify-between gap-2'>
-                    <div className='flex'>
-                        <span className='text-[12px] text-gray-600'>
-                            Power Point
-                        </span>
-
-                    </div>
-                    <MoveUpRight className='w-4 h-4 text-teal-600'/>
+            <div className="flex w-full h-full gap-4">
+                <div className="w-[80%] border h-[20rem] rounded-lg">
+                    <div ref={chartRef} style={{ width: '100%', height: '100%' }}></div>
                 </div>
 
-            </div>
+                <div className="flex flex-col border rounded-lg h-[6rem] w-[20%] p-1 gap-2">
+                    <span className="text-[10px] text-gray-600">
+                        Export
+                    </span>
+
+                    <div className="flex justify-between gap-2">
+                        <div className="flex">
+                            <span className="text-[12px] text-gray-600">
+                                Power BI
+                            </span>
+                        </div>
+                        <MoveUpRight className="w-4 h-4 text-teal-600"/>
+                    </div>
+                    <div className="w-full px-1 border"></div>
+                    <div className="flex justify-between gap-2">
+                        <div className="flex">
+                            <span className="text-[12px] text-gray-600">
+                                Power Point
+                            </span>
+                        </div>
+                        <MoveUpRight className="w-4 h-4 text-teal-600"/>
+                    </div>
+                </div>
             </div>
         </div>
     );

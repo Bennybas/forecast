@@ -110,11 +110,11 @@ const SensitivityTab = () => {
           {/* Legend similar to BudgetStatus */}
           <div className="flex gap-2 mb-2 w-full justify-end pr-4">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-[#c98b27]"></div>
+              <div className="w-2 h-2 rounded-full bg-[#00897b]"></div>
               <span className="text-gray-600 text-xs">Positive</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-[#004567]"></div>
+              <div className="w-2 h-2 rounded-full bg-[#f00716]"></div>
               <span className="text-gray-600 text-xs">Negative</span>
             </div>
           </div>
@@ -170,7 +170,7 @@ const SensitivityTab = () => {
                 {tornadoData.map((entry, index) => (
                   <Cell 
                     key={`cell-${index}`} 
-                    fill={entry.type === 'positive' ? '#c98b27' : '#004567'}
+                    fill={entry.type === 'positive' ? '#00897b' : '#f00716'}
                   />
                 ))}
               </Bar>
