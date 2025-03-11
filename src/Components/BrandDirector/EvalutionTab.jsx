@@ -118,7 +118,7 @@ const EvalutionTab = () => {
                         show: true,
                         position: 'top'
                     },
-                    itemStyle: { color: '#1480b5' },
+                    itemStyle: { color: '#008979' },
                     data: ['-', '-', '-', '-', '-', 5, '-', '-']
                 },
                 {
@@ -129,7 +129,7 @@ const EvalutionTab = () => {
                         show: true,
                         position: 'top'
                     },
-                    itemStyle: { color: '#1480b5' },
+                    itemStyle: { color: '#008979' },
                     data: ['-', '-', '-', '-', '-','-', 10,'-']
                 },
                 {
