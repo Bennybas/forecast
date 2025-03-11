@@ -6,20 +6,22 @@ const PriceTab = () => {
     const chartRef = useRef(null);
     
     useEffect(() => {
-        // Initialize the ECharts instance
         let chartInstance = echarts.init(chartRef.current);
     
-        // ECharts waterfall configuration
         const option = {
-            
             tooltip: {
-                trigger: 'axis',
+                trigger: 'item',
                 axisPointer: {
                     type: 'shadow'
                 },
                 formatter: function (params) {
-                    var tar = params[1];
-                    return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
+                    return params.name + '<br/>' + params.seriesName + ' : ' + params.value;
+                }
+            },
+            legend: {
+                data: ['Previous Cycle', 'Price', 'Volume', 'Current Cycle'],
+                textStyle: {
+                    fontSize: 10  // Adjust the font size as needed
                 }
             },
             grid: {
@@ -30,18 +32,17 @@ const PriceTab = () => {
             },
             xAxis: {
                 type: 'category',
-                splitLine: { show: false },
                 data: ['Previous Cycle', 'Price', 'Volume', 'Current Cycle']
             },
             yAxis: {
-                type: 'value',
-                name: 'Value'
+                type: 'value'
             },
             series: [
                 {
                     name: 'Placeholder',
                     type: 'bar',
                     stack: 'Total',
+                    silent: true,
                     itemStyle: {
                         borderColor: 'transparent',
                         color: 'transparent'
@@ -52,47 +53,63 @@ const PriceTab = () => {
                             color: 'transparent'
                         }
                     },
-                    // These values determine where each bar starts
-                    data: [0, 1000, 1200, 2700]
+                    data: [0, 1000, 820, 0]
                 },
                 {
-                    name: 'Product Value',
+                    name: 'Previous Cycle',
                     type: 'bar',
                     stack: 'Total',
                     label: {
                         show: true,
-                        position: 'inside',
-                        formatter: '{c}'
+                        position: 'top'
                     },
-                    itemStyle: {
-                        color: function(params) {
-                            // Color logic for different stages
-                            const colors = {
-                                'Previous Cycle': '#11749e',
-                                'Price': '#11749e',
-                                'Volume': '#11749e',
-                                'Current Cycle': '#ed5f68'
-                            };
-                            return colors[params.name] || '#4a90e2';
-                        }
+                    itemStyle: { color: '#1480b5' },
+                    data: [1000, '-', '-', '-']
+                },
+                {
+                    name: 'Price',
+                    type: 'bar',
+                    stack: 'Total',
+                    label: {
+                        show: true,
+                        position: 'top'
                     },
-                    // The actual values shown for each step
-                    data: [1000, 200, 1500, -2000]  // -2000 is calculated to make final sum = 700
-                }
+                    itemStyle: { color: '#008979' },
+                    data: ['-', 120, '-', '-']
+                },
+                {
+                    name: 'Volume',
+                    type: 'bar',
+                    stack: 'Total',
+                    label: {
+                        show: true,
+                        position: 'bottom'
+                    },
+                    itemStyle: { color: 'red' },
+                    data: ['-', '-', 300, '-']
+                },
+                {
+                    name: 'Current Cycle',
+                    type: 'bar',
+                    stack: 'Total',
+                    label: {
+                        show: true,
+                        position: 'top'
+                    },
+                    itemStyle: { color: '#1480b5' },
+                    data: ['-', '-', '-', 820]
+                },
             ]
         };
 
-        // Set the option and render the chart
         chartInstance.setOption(option);
         
-        // Handle resize
         const resizeHandler = () => {
             chartInstance.resize();
         };
         
         window.addEventListener('resize', resizeHandler);
         
-        // Cleanup
         return () => {
             chartInstance.dispose();
             window.removeEventListener('resize', resizeHandler);
@@ -110,12 +127,10 @@ const PriceTab = () => {
                 <div className="w-[80%] border h-[20rem] rounded-lg">
                     <div ref={chartRef} style={{ width: '100%', height: '100%' }}></div>
                 </div>
-
                 <div className="flex flex-col border rounded-lg h-[6rem] w-[20%] p-1 gap-2">
                     <span className="text-[10px] text-gray-600">
                         Export
                     </span>
-
                     <div className="flex justify-between gap-2">
                         <div className="flex">
                             <span className="text-[12px] text-gray-600">
