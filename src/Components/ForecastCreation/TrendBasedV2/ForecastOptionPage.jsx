@@ -32,6 +32,20 @@ const ForecastOptionPage = () => {
 
   return (
     <div className="mt-20 px-8">
+      <div className='flex items-center text-[12px]'>
+            <span 
+            onClick={() =>navigate('/trend-based')}
+            className='text-gray-600 cursor-pointer '>History Data</span> &gt; 
+            <span 
+             onClick={() =>navigate('/portfolio-page')}
+            className='text-gray-600 cursor-pointer '>Portfolio Forecasts</span>
+            &gt; 
+            <span 
+            onClick={() =>navigate('/archieve-page')}
+            className='text-gray-600 cursor-pointer '> Forecasts Archive</span>
+            &gt; 
+            <span className='font-medium'>Forecasts Creation</span>
+        </div>
       <div className="rounded-2xl bg-white border w-full shadow-lg h-[28rem]">
         <div className="h-10 bg-gray-200 rounded-t-2xl flex justify-center items-center">
           <span className="text-base font-medium text-gray-800 p-1">

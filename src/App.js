@@ -34,6 +34,9 @@ function App() {
           <Route path="/archieve-page" element={<ForecastArchieve />}/>
           <Route path="/loadeddata-page" element={<LoadedData />}/>
           <Route path="/options-page" element={<ForecastOptionPage />}/>
+          <Route path="/portfolio-page" element={<PortfolioForecastPage />}/>
+          
+
 
           
         </Routes>

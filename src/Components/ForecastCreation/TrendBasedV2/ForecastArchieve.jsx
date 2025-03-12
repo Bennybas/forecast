@@ -25,6 +25,17 @@ const ForecastArchieve = () => {
 
     <div className='mt-[5rem] px-8'>
 
+        <div className='flex items-center text-[12px]'>
+            <span 
+            onClick={() =>navigate('/trend-based')}
+            className='text-gray-600 cursor-pointer '>History Data</span> &gt; 
+            <span 
+             onClick={() =>navigate('/portfolio-page')}
+            className='text-gray-600 cursor-pointer '>Portfolio Forecasts</span>
+            &gt; 
+            <span className='font-medium'> Forecasts Archive</span>
+        </div>
+
     
     <div className=' rounded-2xl bg-white border w-full shadow-lg'>
         <div className='h-10 bg-gray-200 rounded-t-2xl flex justify-center items-center'>

@@ -23,6 +23,21 @@ const PortfolioForecastPage = () => {
   };
 
   return (
+    <div className='mt-[5rem] px-8'>
+        <div className='flex items-center text-[12px]'>
+            <span 
+            onClick={() =>navigate('/trend-based')}
+            className='text-gray-600 cursor-pointer '>History Data</span> &gt; 
+            <span className='font-medium'>Portfolio Forecasts</span>
+        </div>
+    
+    <div className=' rounded-2xl bg-white border w-full shadow-lg'>
+        <div className='h-10 bg-gray-200 rounded-t-2xl flex justify-center items-center'>
+            <span className='text-[16px] font-[500] text-gray-800 p-1'>
+                Forecast Creation
+            </span>
+
+        </div>
    
         <div className='p-4'>
           <div className='mb-4'>
@@ -30,7 +45,7 @@ const PortfolioForecastPage = () => {
           </div>
           
           <div className='mb-3'>
-            <h2 className='text-base font-medium'>Portfolio Forecasts (10+)</h2>
+            
             <p className='text-xs text-gray-600'>10+ items</p>
           </div>
           
@@ -81,6 +96,8 @@ const PortfolioForecastPage = () => {
             </button>
           </div>
         </div>
+        </div>
+    </div>
 
   );
 };

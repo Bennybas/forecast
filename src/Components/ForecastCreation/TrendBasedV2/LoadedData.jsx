@@ -134,6 +134,25 @@ const LoadedData = () => {
 
     <div className='mt-[5rem] px-8'>
 
+<div className='flex items-center text-[12px]'>
+            <span 
+            onClick={() =>navigate('/trend-based')}
+            className='text-gray-600 cursor-pointer '>History Data</span> &gt; 
+            <span 
+             onClick={() =>navigate('/portfolio-page')}
+            className='text-gray-600 cursor-pointer '>Portfolio Forecasts</span>
+            &gt; 
+            <span 
+            onClick={() =>navigate('/archieve-page')}
+            className='text-gray-600 cursor-pointer '> Forecasts Archive</span>
+            &gt; 
+            <span 
+            onClick={()=> navigate('/options-page')}
+            className='text-gray-600 cursor-pointer '>Forecasts Creation</span>
+            &gt; 
+            <span className='font-medium '>Load Data</span>
+        </div>
+
     
     <div className=' rounded-2xl bg-white border w-full shadow-lg'>
         <div className='h-10 bg-gray-200 rounded-t-2xl flex justify-center items-center'>
@@ -269,13 +288,19 @@ const LoadedData = () => {
         </table>
       </div>
 
-      <div 
-           onClick={()=> navigate('/table-page')}
-          className='flex justify-end mt-4'>
-            <button className='bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition'>
-              Create Forecast
-            </button>
-          </div>
+      <div className='flex justify-end mt-4'>
+        <button 
+          onClick={() => data && navigate('/table-page')}
+          disabled={!data}
+          className={`${
+            data 
+              ? 'bg-teal-600 hover:bg-teal-700' 
+              : 'bg-gray-400 cursor-not-allowed'
+          } text-white px-4 py-2 rounded-lg transition`}
+        >
+          Create Forecast
+        </button>
+      </div>
     </div>
     </div>
     </div>

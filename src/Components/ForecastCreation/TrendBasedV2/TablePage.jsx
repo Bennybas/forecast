@@ -1,6 +1,7 @@
 import { useState } from "react"
 import LineChart from "./LineChart"
 import React from "react"
+import { useNavigate } from "react-router-dom"
 
 const actualData = {
   months: Array.from({ length: 11 }, (_, i) => `Month ${i + 1}`),
@@ -108,8 +109,25 @@ const TableCell = ({ children, className, ...props }) => <td className={`py-2 px
 export default function TablePage() {
   const [selectedModel, setSelectedModel] = useState("SARIMA")
 
+  const navigate = useNavigate();
+
   return (
-    <div className='mt-[5rem] px-8'>
+    <div className='mt-[6rem] px-8'>
+
+<div className='flex items-center text-[12px]'>
+            <span 
+            onClick={() =>navigate('/trend-based')}
+            className='text-gray-600 cursor-pointer '>History Data</span> &gt; 
+            <span 
+             onClick={() =>navigate('/portfolio-page')}
+            className='text-gray-600 cursor-pointer '>Portfolio Forecasts</span>
+            &gt; 
+            <span 
+            onClick={() =>navigate('/archieve-page')}
+            className='text-gray-600 cursor-pointer '> Forecasts Archive</span>
+            &gt; 
+            <span className='font-medium'> FS-2024-480190</span>
+        </div>
 
     
     <div className=' rounded-2xl bg-white border w-full shadow-lg'>
@@ -403,7 +421,9 @@ export default function TablePage() {
           <Edit className="w-4 h-4 mr-2" />
           Edit Forecast
         </Button>
-        <Button className="bg-teal-600 hover:bg-teal-700 text-[12px]">
+        <Button 
+        onClick={()=> navigate('/options-page')}
+        className="bg-teal-600 hover:bg-teal-700 text-[12px]">
           <Plus className="w-4 h-4 mr-2" />
           Create New
         </Button>
